@@ -99,4 +99,12 @@ public class TaskController : Controller
         await _taskService.DeleteTaskAsync(id);
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GroupedByStatus(Priority priority = Priority.Medium)
+    {
+        var groupedTasks = await _taskService.GetTasksGroupedByStatusFilteredByPriorityAsync(priority);
+        ViewBag.SelectedPriority = priority;
+        return View(groupedTasks);
+    }
 }

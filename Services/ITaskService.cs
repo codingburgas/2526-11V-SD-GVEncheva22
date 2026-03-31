@@ -13,5 +13,7 @@ namespace project_GVEncheva22.Services
         Task<IEnumerable<TaskItem>> GetTasksByBoardAsync(int boardId);
         Task<IEnumerable<TaskItem>> GetTasksByStatusAsync(Status status);
         Task<IEnumerable<TaskItem>> GetTasksByPriorityAsync(Priority priority);
+
+        Task<Dictionary<Status, IEnumerable<TaskItem>>> GetTasksGroupedByStatusFilteredByPriorityAsync(Priority priority);
     }
 }

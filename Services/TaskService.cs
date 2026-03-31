@@ -80,5 +80,17 @@ namespace project_GVEncheva22.Services
                 .Where(t => t.Priority == priority)
                 .ToListAsync();
         }
+
+        public async Task<Dictionary<Status, IEnumerable<TaskItem>>> GetTasksGroupedByStatusFilteredByPriorityAsync(Priority priority)
+        {
+            var tasks = await _dbContext.TaskItems
+                .Include(t => t.Board)
+                .Where(t => t.Priority == priority)
+                .ToListAsync();
+
+            return tasks
+                .GroupBy(t => t.Status)
+                .ToDictionary(g => g.Key, g => g.AsEnumerable());
+        }
     }
 }

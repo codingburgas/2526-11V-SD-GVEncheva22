@@ -1,0 +1,87 @@
+@model Dictionary<project_GVEncheva22.Models.Status, IEnumerable<project_GVEncheva22.Models.TaskItem>>
+
+@{
+    ViewData["Title"] = "Tasks Grouped by Status";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-primary">Tasks Grouped by Status</h1>
+                <div>
+                    <span class="me-2">Filter by Priority:</span>
+                    @foreach (var priority in Enum.GetValues(typeof(project_GVEncheva22.Models.Priority)))
+                    {
+                        var isSelected = (project_GVEncheva22.Models.Priority)priority == ViewBag.SelectedPriority;
+                        <a href="@Url.Action("GroupedByStatus", new { priority = priority })"
+                           class="btn @(isSelected ? "btn-primary" : "btn-outline-primary") btn-sm me-1">
+                            @priority
+                        </a>
+                    }
+                </div>
+            </div>
+
+            @if (!Model.Any() || Model.All(g => !g.Value.Any()))
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Tasks Found</h4>
+                    <p>No tasks found with priority "@ViewBag.SelectedPriority".</p>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var group in Model)
+                    {
+                        var statusClass = group.Key == project_GVEncheva22.Models.Status.Done ? "success" :
+                                         group.Key == project_GVEncheva22.Models.Status.InProgress ? "primary" : "secondary";
+                        var statusIcon = group.Key == project_GVEncheva22.Models.Status.Done ? "fas fa-check-circle" :
+                                        group.Key == project_GVEncheva22.Models.Status.InProgress ? "fas fa-clock" : "fas fa-list-ul";
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 border-@statusClass">
+                                <div class="card-header bg-@statusClass text-white">
+                                    <h5 class="card-title mb-0">
+                                        <i class="@statusIcon me-2"></i>
+                                        @group.Key (@group.Value.Count())
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    @if (group.Value.Any())
+                                    {
+                                        <ul class="list-group list-group-flush">
+                                            @foreach (var task in group.Value)
+                                            {
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <strong>@task.Title</strong>
+                                                        <br>
+                                                        <small class="text-muted">@task.Board.Title</small>
+                                                    </div>
+                                                    <a asp-action="Details" asp-route-id="@task.Id" class="btn btn-sm btn-outline-info">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted mb-0">No tasks in this status.</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div class="text-center mt-3">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Task List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
