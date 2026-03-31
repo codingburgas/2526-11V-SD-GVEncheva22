@@ -13,7 +13,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 builder.Services.AddScoped<project_GVEncheva22.Services.ITaskService, project_GVEncheva22.Services.TaskService>();
 builder.Services.AddScoped<project_GVEncheva22.Services.IBoardService, project_GVEncheva22.Services.BoardService>();
@@ -41,5 +42,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.MapRazorPages();
 
 app.Run();

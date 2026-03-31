@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using project_GVEncheva22.Models;
 using project_GVEncheva22.Services;
 
 namespace project_GVEncheva22.Controllers;
 
+[Authorize]
 public class TaskController : Controller
 {
     private readonly ITaskService _taskService;
