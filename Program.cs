@@ -15,6 +15,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddScoped<project_GVEncheva22.Services.ITaskService, project_GVEncheva22.Services.TaskService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
