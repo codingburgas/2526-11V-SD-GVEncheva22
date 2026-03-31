@@ -28,4 +28,47 @@ public class BoardController : Controller
         }
         return View(board);
     }
+
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Board board)
+    {
+        if (ModelState.IsValid)
+        {
+            await _boardService.CreateBoardAsync(board);
+            return RedirectToAction("Index");
+        }
+        return View(board);
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var board = await _boardService.GetBoardByIdAsync(id);
+        if (board == null)
+        {
+            return NotFound();
+        }
+        return View(board);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, Board board)
+    {
+        if (id != board.Id)
+        {
+            return BadRequest();
+        }
+        if (ModelState.IsValid)
+        {
+            await _boardService.UpdateBoardAsync(board);
+            return RedirectToAction("Index");
+        }
+        return View(board);
+    }
 }
