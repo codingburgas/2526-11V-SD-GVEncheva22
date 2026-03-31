@@ -38,6 +38,7 @@ public class BoardController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Create(Board board)
     {
         if (ModelState.IsValid)
@@ -60,6 +61,7 @@ public class BoardController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Edit(int id, Board board)
     {
         if (id != board.Id)
@@ -86,6 +88,7 @@ public class BoardController : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         await _boardService.DeleteBoardAsync(id);

@@ -16,6 +16,12 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddDefaultTokenProviders()
     .AddDefaultUI();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("UserOrAdmin", policy => policy.RequireRole("User", "Admin"));
+});
+
 builder.Services.AddScoped<project_GVEncheva22.Services.ITaskService, project_GVEncheva22.Services.TaskService>();
 builder.Services.AddScoped<project_GVEncheva22.Services.IBoardService, project_GVEncheva22.Services.BoardService>();
 

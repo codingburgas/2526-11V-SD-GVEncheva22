@@ -38,6 +38,7 @@ public class TaskController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Create(TaskItem task)
     {
         if (ModelState.IsValid)
@@ -60,6 +61,7 @@ public class TaskController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Edit(int id, TaskItem task)
     {
         if (id != task.Id)
@@ -86,6 +88,7 @@ public class TaskController : Controller
 
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
+    [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         await _taskService.DeleteTaskAsync(id);
