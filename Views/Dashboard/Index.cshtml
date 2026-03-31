@@ -1,0 +1,82 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Task Management Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Total Tasks</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.TotalTasks</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Completion Percentage</div>
+                <div class="card-body">
+                    <h5 class="card-title">@Math.Round(ViewBag.CompletionPercentage, 1)%</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-header">Overdue Tasks</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.OverdueTasks</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Upcoming Deadlines</div>
+                <div class="card-body">
+                    <h5 class="card-title">@ViewBag.UpcomingDeadlines.Count</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Upcoming Deadlines
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.UpcomingDeadlines.Count > 0)
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var task in ViewBag.UpcomingDeadlines)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @task.Title
+                                    <span class="badge badge-primary badge-pill">@task.Deadline?.ToString("MMM dd")</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No upcoming deadlines.</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Quick Actions
+                </div>
+                <div class="card-body">
+                    <a href="/Board" class="btn btn-primary btn-block mb-2">Manage Boards</a>
+                    <a href="/Task" class="btn btn-secondary btn-block mb-2">Manage Tasks</a>
+                    <a href="/Task/GroupedByStatus" class="btn btn-info btn-block">View Tasks by Status</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
