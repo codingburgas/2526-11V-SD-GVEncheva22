@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using project_GVEncheva22.Models;
 using project_GVEncheva22.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace project_GVEncheva22.Controllers;
 
@@ -9,10 +10,12 @@ namespace project_GVEncheva22.Controllers;
 public class TaskController : Controller
 {
     private readonly ITaskService _taskService;
+    private readonly IBoardService _boardService;
 
-    public TaskController(ITaskService taskService)
+    public TaskController(ITaskService taskService, IBoardService boardService)
     {
         _taskService = taskService;
+        _boardService = boardService;
     }
 
     public async Task<IActionResult> Index()
@@ -31,8 +34,9 @@ public class TaskController : Controller
         return View(task);
     }
 
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
+        ViewBag.BoardsSelectList = new SelectList(await _boardService.GetAllBoardsAsync(), "Id", "Title");
         return View();
     }
 
@@ -56,6 +60,7 @@ public class TaskController : Controller
         {
             return NotFound();
         }
+        ViewBag.BoardsSelectList = new SelectList(await _boardService.GetAllBoardsAsync(), "Id", "Title");
         return View(task);
     }
 
