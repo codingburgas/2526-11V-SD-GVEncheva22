@@ -1,8 +1,134 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Task Manager</h1>
-    <p>Organize your tasks in boards, lists and cards (Trello-style).</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-primary mb-4">Task Manager Dashboard</h1>
+            <p class="lead">Organize your tasks in boards, lists and cards (Trello-style).</p>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-4 text-primary">@ViewBag.TotalTasks</div>
+                    <h5 class="card-title">Total Tasks</h5>
+                    <i class="fas fa-tasks fa-2x text-primary mt-2"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-4 text-success">@ViewBag.CompletedTasks</div>
+                    <h5 class="card-title">Completed Tasks</h5>
+                    <i class="fas fa-check-circle fa-2x text-success mt-2"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-4 text-info">@ViewBag.CompletionPercentage.ToString("F1")%</div>
+                    <h5 class="card-title">Completion Rate</h5>
+                    <div class="progress mt-2" style="height: 10px;">
+                        <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.CompletionPercentage%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card text-center h-100">
+                <div class="card-body">
+                    <div class="display-4 text-danger">@ViewBag.OverdueTasks</div>
+                    <h5 class="card-title">Overdue Tasks</h5>
+                    <i class="fas fa-exclamation-triangle fa-2x text-danger mt-2"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Deadlines -->
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-clock me-2"></i>Upcoming Deadlines
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.UpcomingDeadlines != null && ViewBag.UpcomingDeadlines.Count > 0)
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var task in ViewBag.UpcomingDeadlines)
+                            {
+                                var daysUntil = (task.Deadline.Value - DateTime.Now).Days;
+                                var urgencyClass = daysUntil <= 1 ? "text-danger" : daysUntil <= 3 ? "text-warning" : "text-success";
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@task.Title</strong>
+                                        <br>
+                                        <small class="text-muted">@task.Board.Title</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="@urgencyClass fw-bold">
+                                            @task.Deadline.Value.ToString("MMM dd")
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">@daysUntil days</small>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="text-center text-muted py-4">
+                            <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                            <p>No upcoming deadlines</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a asp-controller="Board" asp-action="Index" class="btn btn-outline-primary">
+                            <i class="fas fa-clipboard-list me-2"></i>View Boards
+                        </a>
+                        <a asp-controller="Task" asp-action="Index" class="btn btn-outline-primary">
+                            <i class="fas fa-tasks me-2"></i>View Tasks
+                        </a>
+                        <a asp-controller="Task" asp-action="GroupedByStatus" class="btn btn-outline-primary">
+                            <i class="fas fa-chart-bar me-2"></i>View Grouped Tasks
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <hr>
+                            <a asp-controller="Board" asp-action="Create" class="btn btn-success">
+                                <i class="fas fa-plus me-2"></i>Create New Board
+                            </a>
+                            <a asp-controller="Task" asp-action="Create" class="btn btn-success">
+                                <i class="fas fa-plus me-2"></i>Create New Task
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
