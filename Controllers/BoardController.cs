@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using project_GVEncheva22.Models;
 using project_GVEncheva22.Services;
+using System.Security.Claims;
 
 namespace project_GVEncheva22.Controllers;
 
@@ -41,6 +42,7 @@ public class BoardController : Controller
     [Authorize(Policy = "AdminOnly")]
     public async Task<IActionResult> Create(Board board)
     {
+        board.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (ModelState.IsValid)
         {
             await _boardService.CreateBoardAsync(board);
@@ -68,6 +70,7 @@ public class BoardController : Controller
         {
             return BadRequest();
         }
+        board.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (ModelState.IsValid)
         {
             await _boardService.UpdateBoardAsync(board);
