@@ -4,49 +4,99 @@
     ViewData["Title"] = "Board Details";
 }
 
-<h1>Board Details</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Board">Boards</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
 
-<div>
-    <h4>Board</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class="col-sm-2">
-            Tasks
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.TaskItems != null && Model.TaskItems.Any())
-            {
-                <ul>
-                    @foreach (var task in Model.TaskItems)
-                    {
-                        <li>@task.Title</li>
-                    }
-                </ul>
-            }
-            else
-            {
-                <p>No tasks yet.</p>
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-    }
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="card-title mb-0">
+                        <i class="fas fa-clipboard-list"></i> @Model.Title
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Board Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-4">Title</dt>
+                                <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+                                <dt class="col-sm-4">Created</dt>
+                                <dd class="col-sm-8">@Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted">Tasks Overview</h5>
+                            @if (Model.TaskItems != null && Model.TaskItems.Any())
+                            {
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <div class="h4 text-success">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.Done)</div>
+                                            <small class="text-muted">Done</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <div class="h4 text-primary">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.InProgress)</div>
+                                            <small class="text-muted">In Progress</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="text-center">
+                                            <div class="h4 text-secondary">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.ToDo)</div>
+                                            <small class="text-muted">To Do</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h6>Recent Tasks</h6>
+                                <ul class="list-group list-group-flush">
+                                    @foreach (var task in Model.TaskItems.OrderByDescending(t => t.CreatedAt).Take(5))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            @task.Title
+                                            <span class="badge bg-@(task.Status == project_GVEncheva22.Models.Status.Done ? "success" : task.Status == project_GVEncheva22.Models.Status.InProgress ? "primary" : "secondary") rounded-pill">
+                                                @task.Status
+                                            </span>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <div class="alert alert-light" role="alert">
+                                    <i class="fas fa-info-circle"></i> No tasks have been added to this board yet.
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

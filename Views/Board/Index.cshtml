@@ -4,46 +4,67 @@
     ViewData["Title"] = "Boards";
 }
 
-<h1>Boards</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="text-primary">Boards</h1>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-action="Create" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus"></i> Create New Board
+                    </a>
+                }
+            </div>
 
-<p>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Create" class="btn btn-primary">Create New</a>
-    }
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Details</a>
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4 class="alert-heading">No Boards Found</h4>
+                    <p>No boards have been created yet.</p>
                     @if (User.IsInRole("Admin"))
                     {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        <hr>
+                        <p class="mb-0">
+                            <a asp-action="Create" class="btn btn-primary">Create Your First Board</a>
+                        </p>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title text-primary">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                    <p class="card-text text-muted">
+                                        Created: @item.CreatedAt.ToString("MMM dd, yyyy")
+                                    </p>
+                                    <div class="d-flex justify-content-between">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-eye"></i> Details
+                                        </a>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <div>
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

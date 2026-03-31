@@ -4,61 +4,121 @@
     ViewData["Title"] = "Task Details";
 }
 
-<h1>Task Details</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Task">Tasks</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
 
-<div>
-    <h4>TaskItem</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Board.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Board.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
-    }
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h1 class="card-title mb-0">
+                        <i class="fas fa-tasks"></i> @Model.Title
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h5 class="text-muted">Task Information</h5>
+                            <dl class="row">
+                                <dt class="col-sm-3">Title</dt>
+                                <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+                                <dt class="col-sm-3">Description</dt>
+                                <dd class="col-sm-9">
+                                    @if (!string.IsNullOrEmpty(Model.Description))
+                                    {
+                                        @Model.Description
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No description provided</span>
+                                    }
+                                </dd>
+                                <dt class="col-sm-3">Priority</dt>
+                                <dd class="col-sm-9">
+                                    <span class="badge bg-@(Model.Priority == project_GVEncheva22.Models.Priority.High ? "danger" : Model.Priority == project_GVEncheva22.Models.Priority.Medium ? "warning" : "secondary") fs-6">
+                                        @Model.Priority
+                                    </span>
+                                </dd>
+                                <dt class="col-sm-3">Status</dt>
+                                <dd class="col-sm-9">
+                                    <span class="badge bg-@(Model.Status == project_GVEncheva22.Models.Status.Done ? "success" : Model.Status == project_GVEncheva22.Models.Status.InProgress ? "primary" : "light") fs-6">
+                                        @Model.Status
+                                    </span>
+                                </dd>
+                                <dt class="col-sm-3">Board</dt>
+                                <dd class="col-sm-9">
+                                    <a asp-action="Details" asp-controller="Board" asp-route-id="@Model.BoardId" class="text-decoration-none">
+                                        @Html.DisplayFor(model => model.Board.Title)
+                                    </a>
+                                </dd>
+                                <dt class="col-sm-3">Deadline</dt>
+                                <dd class="col-sm-9">
+                                    @if (Model.Deadline.HasValue)
+                                    {
+                                        <span class="@(Model.Deadline < DateTime.Now ? "text-danger fw-bold" : "text-muted")">
+                                            @Model.Deadline.Value.ToString("dddd, MMMM dd, yyyy 'at' HH:mm")
+                                        </span>
+                                        @if (Model.Deadline < DateTime.Now)
+                                        {
+                                            <small class="text-danger d-block">⚠️ Overdue</small>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No deadline set</span>
+                                    }
+                                </dd>
+                                <dt class="col-sm-3">Created</dt>
+                                <dd class="col-sm-9">@Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="text-muted">Quick Stats</h5>
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <div class="mb-3">
+                                        <i class="fas fa-calendar-alt fa-2x text-primary mb-2"></i>
+                                        <div class="h6">Days Since Created</div>
+                                        <div class="h4 text-primary">@((DateTime.Now - Model.CreatedAt).Days)</div>
+                                    </div>
+                                    @if (Model.Deadline.HasValue)
+                                    {
+                                        <hr>
+                                        <div>
+                                            <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                                            <div class="h6">Days Until Deadline</div>
+                                            <div class="h4 text-warning">@((Model.Deadline.Value - DateTime.Now).Days)</div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Back to List
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div>
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
