@@ -67,7 +67,15 @@
                                                                 @if (task.Priority != project_GVEncheva22.Models.Priority.Low)
                                                                 {
                                                                     <br>
-                                                                    <span class="badge bg-@(task.Priority == project_GVEncheva22.Models.Priority.High ? "danger" : "warning") badge-sm">
+                                                                    <span class="priority-badge badge rounded-pill badge-sm @(task.Priority == project_GVEncheva22.Models.Priority.High ? "priority-high" : "priority-medium")">
+                                                                        @if (task.Priority == project_GVEncheva22.Models.Priority.High)
+                                                                        {
+                                                                            <i class="bi bi-exclamation-circle-fill me-1"></i>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <i class="bi bi-dash-circle-fill me-1"></i>
+                                                                        }
                                                                         @task.Priority
                                                                     </span>
                                                                 }

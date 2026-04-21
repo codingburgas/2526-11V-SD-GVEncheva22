@@ -71,8 +71,20 @@
                                     </div>
                                     
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span class="badge bg-@(item.Priority == project_GVEncheva22.Models.Priority.High ? "danger" : item.Priority == project_GVEncheva22.Models.Priority.Medium ? "warning" : "secondary")">
-                                            <i class="bi bi-flag-fill me-1"></i>@item.Priority
+                                        <span class="priority-badge badge rounded-pill @(item.Priority == project_GVEncheva22.Models.Priority.High ? "priority-high" : item.Priority == project_GVEncheva22.Models.Priority.Medium ? "priority-medium" : "priority-low")">
+                                            @if (item.Priority == project_GVEncheva22.Models.Priority.High)
+                                            {
+                                                <i class="bi bi-exclamation-circle-fill me-1"></i>
+                                            }
+                                            else if (item.Priority == project_GVEncheva22.Models.Priority.Medium)
+                                            {
+                                                <i class="bi bi-dash-circle-fill me-1"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-check-circle-fill me-1"></i>
+                                            }
+                                            @item.Priority
                                         </span>
                                         
                                         <div class="task-actions">

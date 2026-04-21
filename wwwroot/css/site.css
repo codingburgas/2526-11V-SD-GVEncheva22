@@ -202,6 +202,55 @@ small, .text-muted {
   font-size: 0.75rem;
 }
 
+/* Priority Badge Styling */
+.priority-badge {
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.875rem !important;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.priority-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* High Priority - Red */
+.priority-high {
+  background: linear-gradient(135deg, #dc3545 0%, #bb2d3b 100%) !important;
+  color: white;
+  border: 1px solid #c8192a;
+}
+
+.priority-high:hover {
+  background: linear-gradient(135deg, #c82333 0%, #a42628 100%) !important;
+}
+
+/* Medium Priority - Orange/Amber */
+.priority-medium {
+  background: linear-gradient(135deg, #fd7e14 0%, #e67e22 100%) !important;
+  color: white;
+  border: 1px solid #f57c00;
+}
+
+.priority-medium:hover {
+  background: linear-gradient(135deg, #f57c00 0%, #d96c1b 100%) !important;
+}
+
+/* Low Priority - Green */
+.priority-low {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+  color: white;
+  border: 1px solid #1e7e34;
+}
+
+.priority-low:hover {
+  background: linear-gradient(135deg, #1e7e34 0%, #155724 100%) !important;
+}
+
 /* Modern progress bars */
 .progress {
   border-radius: 1rem;

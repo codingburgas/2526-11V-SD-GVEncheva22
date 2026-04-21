@@ -43,7 +43,19 @@
                         </dd>
                         <dt class="col-sm-4 fw-bold">Priority</dt>
                         <dd class="col-sm-8">
-                            <span class="badge bg-@(Model.Priority == project_GVEncheva22.Models.Priority.High ? "danger" : Model.Priority == project_GVEncheva22.Models.Priority.Medium ? "warning" : "secondary")">
+                            <span class="priority-badge badge rounded-pill @(Model.Priority == project_GVEncheva22.Models.Priority.High ? "priority-high" : Model.Priority == project_GVEncheva22.Models.Priority.Medium ? "priority-medium" : "priority-low")">
+                                @if (Model.Priority == project_GVEncheva22.Models.Priority.High)
+                                {
+                                    <i class="bi bi-exclamation-circle-fill me-1"></i>
+                                }
+                                else if (Model.Priority == project_GVEncheva22.Models.Priority.Medium)
+                                {
+                                    <i class="bi bi-dash-circle-fill me-1"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-check-circle-fill me-1"></i>
+                                }
                                 @Model.Priority
                             </span>
                         </dd>
