@@ -423,6 +423,156 @@ small, .text-muted {
   border-radius: 5rem;
 }
 
+/* Form Styling */
+.form-control,
+.form-select,
+.form-check-input {
+  border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-control::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #212529;
+  margin-bottom: 0.6rem;
+  display: block;
+  letter-spacing: 0.3px;
+}
+
+.form-label small {
+  font-weight: normal;
+  color: #6c757d;
+  font-style: italic;
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+textarea.form-control:focus {
+  resize: vertical;
+}
+
+/* Form Validation */
+.text-danger {
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: block;
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Form Container */
+.form-card {
+  border-radius: 1rem;
+  border: none;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form-card .card-header {
+  padding: 2rem;
+  border-bottom: 3px solid;
+}
+
+.form-card .card-header.bg-success {
+  border-bottom-color: #28a745;
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+}
+
+.form-card .card-header.bg-warning {
+  border-bottom-color: #ffc107;
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+}
+
+.form-card .card-header.bg-info {
+  border-bottom-color: #17a2b8;
+  background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%) !important;
+}
+
+.form-card .card-header h1,
+.form-card .card-header .h4 {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.form-card .card-body {
+  padding: 2.5rem;
+  background-color: #ffffff;
+}
+
+.form-card .form-row {
+  margin-bottom: 1.5rem;
+}
+
+.form-card .form-row:last-child {
+  margin-bottom: 0;
+}
+
+/* Form Group Spacing */
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-3:last-child {
+  margin-bottom: 1rem;
+}
+
+/* Breadcrumb Styling */
+.breadcrumb {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb-item.active {
+  color: #007bff;
+  font-weight: 500;
+}
+
+/* Form Grid */
+.form-row {
+  display: grid;
+  grid-gap: 1.5rem;
+}
+
+.form-row.cols-2 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.form-row.cols-3 {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
 /* Modern progress bars */
 .progress {
   border-radius: 1rem;

@@ -15,30 +15,30 @@
                 </ol>
             </nav>
 
-            <div class="card shadow">
+            <div class="card form-card">
                 <div class="card-header bg-warning text-dark">
                     <h1 class="card-title h4 mb-0">
-                        <i class="fas fa-edit"></i> Edit Task
+                        <i class="bi bi-pencil-square"></i> Edit Task
                     </h1>
                 </div>
                 <div class="card-body">
                     <form asp-action="Edit">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4"></div>
                         <input type="hidden" asp-for="Id" />
 
-                        <div class="row">
+                        <div class="row g-4">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="Title" class="form-label fw-bold"></label>
-                                    <input asp-for="Title" class="form-control" placeholder="Enter task title" />
+                                    <label asp-for="Title" class="form-label">Task Title <span class="text-danger">*</span></label>
+                                    <input asp-for="Title" class="form-control" placeholder="Enter a descriptive task title" />
                                     <span asp-validation-for="Title" class="text-danger small"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label asp-for="BoardId" class="form-label fw-bold"></label>
+                                    <label asp-for="BoardId" class="form-label">Select Board <span class="text-danger">*</span></label>
                                     <select asp-for="BoardId" class="form-select" asp-items="ViewBag.BoardsSelectList">
-                                        <option value="">Select a board</option>
+                                        <option value="">Choose a board...</option>
                                     </select>
                                     <span asp-validation-for="BoardId" class="text-danger small"></span>
                                 </div>
@@ -46,38 +46,38 @@
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Description" class="form-label fw-bold"></label>
-                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter task description (optional)"></textarea>
+                            <label asp-for="Description" class="form-label">Description <small class="text-muted">(optional)</small></label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Describe what needs to be done..."></textarea>
                             <span asp-validation-for="Description" class="text-danger small"></span>
                         </div>
 
-                        <div class="row">
+                        <div class="row g-4">
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label asp-for="Priority" class="form-label fw-bold"></label>
+                                    <label asp-for="Priority" class="form-label">Priority</label>
                                     <select asp-for="Priority" class="form-select" asp-items="Html.GetEnumSelectList<project_GVEncheva22.Models.Priority>()"></select>
                                     <span asp-validation-for="Priority" class="text-danger small"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label asp-for="Status" class="form-label fw-bold"></label>
+                                    <label asp-for="Status" class="form-label">Status</label>
                                     <select asp-for="Status" class="form-select" asp-items="Html.GetEnumSelectList<project_GVEncheva22.Models.Status>()"></select>
                                     <span asp-validation-for="Status" class="text-danger small"></span>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="mb-3">
-                                    <label asp-for="Deadline" class="form-label fw-bold"></label>
+                                    <label asp-for="Deadline" class="form-label">Deadline</label>
                                     <input asp-for="Deadline" class="form-control" type="datetime-local" />
                                     <span asp-validation-for="Deadline" class="text-danger small"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="d-grid">
+                        <div class="d-grid gap-2 pt-2">
                             <button type="submit" class="btn btn-warning btn-lg">
-                                <i class="fas fa-save"></i> Save Changes
+                                <i class="bi bi-arrow-clockwise"></i> Save Changes
                             </button>
                         </div>
                     </form>
