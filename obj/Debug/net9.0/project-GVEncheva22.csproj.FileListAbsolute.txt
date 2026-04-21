@@ -22,7 +22,6 @@
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/scopedcss/bundle/project-GVEncheva22.styles.css
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/scopedcss/projectbundle/project-GVEncheva22.bundle.scp.css
-/Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/if9q3biqoj-b9sayid5wm.gz
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/cyin3a0blp-61n19gt1b8.gz
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/o6pitb1e04-xtxxf3hu2r.gz
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/g07lu4v6lw-bqjiyaj88i.gz
@@ -271,3 +270,4 @@
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/t0qo7o574p-dd6z7egasc.gz
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/b9lhb08218-5pze98is44.gz
 /Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/yfc7ypekbg-mlv21k5csn.gz
+/Users/gabriela/Documents/project-GVEncheva22/obj/Debug/net9.0/compressed/if9q3biqoj-k9zs3iyoqq.gz
