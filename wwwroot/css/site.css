@@ -101,6 +101,43 @@ small, .text-muted {
   padding: 1.5rem;
 }
 
+/* Board cards - Trello style */
+.board-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.board-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #007bff, #0056b3);
+}
+
+.board-stats {
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0 -1.5rem;
+}
+
+.stat-number {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.board-meta {
+  font-style: italic;
+}
+
+.board-menu .dropdown-menu {
+  min-width: 140px;
+}
+
 /* Modern progress bars */
 .progress {
   border-radius: 1rem;
