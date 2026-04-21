@@ -6,35 +6,36 @@
     <h1 class="mb-4">Task Management Dashboard</h1>
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">Total Tasks</div>
-                <div class="card-body">
-                    <h5 class="card-title">@ViewBag.TotalTasks</h5>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="display-4 text-success mb-2">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <h3 class="card-title text-success">@ViewBag.CompletedTasks</h3>
+                    <p class="card-text text-muted">Completed Tasks</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-header">Completion Percentage</div>
-                <div class="card-body">
-                    <h5 class="card-title">@Math.Round(ViewBag.CompletionPercentage, 1)%</h5>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="display-4 text-primary mb-2">
+                        <i class="bi bi-clock-fill"></i>
+                    </div>
+                    <h3 class="card-title text-primary">@ViewBag.PendingTasks</h3>
+                    <p class="card-text text-muted">Pending Tasks</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-warning mb-3">
-                <div class="card-header">Overdue Tasks</div>
-                <div class="card-body">
-                    <h5 class="card-title">@ViewBag.OverdueTasks</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">Upcoming Deadlines</div>
-                <div class="card-body">
-                    <h5 class="card-title">@ViewBag.UpcomingDeadlines.Count</h5>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <div class="display-4 text-danger mb-2">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
+                    <h3 class="card-title text-danger">@ViewBag.OverdueTasks</h3>
+                    <p class="card-text text-muted">Overdue Tasks</p>
                 </div>
             </div>
         </div>

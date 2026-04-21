@@ -20,6 +20,7 @@ namespace project_GVEncheva22.Controllers
             var tasks = await _taskService.GetAllTasksAsync();
             var totalTasks = tasks.Count();
             var completedTasks = tasks.Count(t => t.Status == Status.Done);
+            var pendingTasks = tasks.Count(t => t.Status != Status.Done);
             var completionPercentage = totalTasks > 0 ? (double)completedTasks / totalTasks * 100 : 0;
             var overdueTasks = tasks.Count(t => t.Deadline.HasValue && t.Deadline.Value < DateTime.Now && t.Status != Status.Done);
             var upcomingDeadlines = tasks.Where(t => t.Deadline.HasValue && t.Deadline.Value >= DateTime.Now && t.Deadline.Value <= DateTime.Now.AddDays(7) && t.Status != Status.Done)
@@ -28,6 +29,8 @@ namespace project_GVEncheva22.Controllers
                                          .ToList();
 
             ViewBag.TotalTasks = totalTasks;
+            ViewBag.CompletedTasks = completedTasks;
+            ViewBag.PendingTasks = pendingTasks;
             ViewBag.CompletionPercentage = completionPercentage;
             ViewBag.OverdueTasks = overdueTasks;
             ViewBag.UpcomingDeadlines = upcomingDeadlines;
