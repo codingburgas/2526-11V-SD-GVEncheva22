@@ -6,12 +6,12 @@ namespace project_GVEncheva22.Models
     {
         [Required]
         [StringLength(100)]
-        public string Title { get; set; }
+        public required string Title { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public required string UserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public required ApplicationUser User { get; set; }
 
         // Navigation property for related TaskItems
         public ICollection<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
