@@ -1,38 +1,63 @@
 @model project_GVEncheva22.Models.Board
 
 @{
-    ViewData["Title"] = "Edit Board";
+    ViewData["Title"] = "Edit Board"; // Page title in browser tab
 }
 
+<!-- Main container centered on screen -->
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
+
+                    <!-- Link to boards list -->
                     <li class="breadcrumb-item"><a asp-action="Index">Boards</a></li>
+
+                    <!-- Link to board details -->
                     <li class="breadcrumb-item"><a asp-action="Details" asp-route-id="@Model.Id">@Model.Title</a></li>
+
+                    <!-- Current page -->
                     <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
             </nav>
 
+            <!-- Edit form card -->
             <div class="card form-card">
+
+                <!-- Header -->
                 <div class="card-header bg-warning text-dark">
                     <h1 class="card-title h4 mb-0">
                         <i class="bi bi-pencil-square"></i> Edit Board
                     </h1>
                 </div>
+
+                <!-- Card body -->
                 <div class="card-body">
+
+                    <!-- Form for editing board -->
                     <form asp-action="Edit">
+
+                        <!-- Validation summary (shows model errors) -->
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4"></div>
                         <input type="hidden" asp-for="Id" />
 
                         <div class="mb-3">
+
+                            <!-- Title input field -->
                             <label asp-for="Title" class="form-label">Board Title <span class="text-danger">*</span></label>
+
+                            <!-- Input for board title -->
                             <input asp-for="Title" class="form-control form-control-lg" placeholder="Enter a name for your board" />
+
+                            <!-- Validation message for Title -->
                             <span asp-validation-for="Title" class="text-danger small"></span>
+
+                            <!-- Helper text -->
                             <small class="text-muted d-block mt-2">Update your board name to reflect current project status</small>
                         </div>
 
+                        <!-- Submit button -->
                         <div class="d-grid gap-2 pt-2">
                             <button type="submit" class="btn btn-warning btn-lg">
                                 <i class="bi bi-arrow-clockwise"></i> Save Changes
@@ -41,7 +66,8 @@
                     </form>
                 </div>
             </div>
-
+            
+            <!-- Back button -->
             <div class="text-center mt-3">
                 <a asp-action="Index" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left"></i> Back to List

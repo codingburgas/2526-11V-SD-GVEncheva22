@@ -1,20 +1,25 @@
 @model project_GVEncheva22.Models.Board
 
 @{
-    ViewData["Title"] = "Board Details";
+    ViewData["Title"] = "Board Details"; // Page title in browser tab
 }
 
+<!-- Main container -->
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Board">Boards</a></li>
+
+                     <!-- Current board name -->
                     <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
                 </ol>
             </nav>
 
             <div class="card shadow">
+                
+                <!-- Header with board title -->
                 <div class="card-header bg-primary text-white">
                     <h1 class="card-title mb-0">
                         <i class="fas fa-clipboard-list"></i> @Model.Title
@@ -22,20 +27,32 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+
+                        <!-- Left side: Board information -->
                         <div class="col-md-6">
                             <h5 class="text-muted">Board Information</h5>
                             <dl class="row">
                                 <dt class="col-sm-4">Title</dt>
+
+                                <!-- Board title -->
                                 <dd class="col-sm-8">@Html.DisplayFor(model => model.Title)</dd>
+
+                                <!-- Creation date -->
                                 <dt class="col-sm-4">Created</dt>
                                 <dd class="col-sm-8">@Model.CreatedAt.ToString("MMMM dd, yyyy 'at' HH:mm")</dd>
                             </dl>
                         </div>
+
+                        <!-- Right side: Task statistics -->
                         <div class="col-md-6">
                             <h5 class="text-muted">Tasks Overview</h5>
+
+                            <!-- Check if board has tasks -->
                             @if (Model.TaskItems != null && Model.TaskItems.Any())
                             {
                                 <div class="row">
+
+                                    <!-- Done tasks -->
                                     <div class="col-4">
                                         <div class="text-center">
                                             <div class="h4 text-success">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.Done)</div>
@@ -44,10 +61,14 @@
                                     </div>
                                     <div class="col-4">
                                         <div class="text-center">
+
+                                            <!-- In Progress tasks -->
                                             <div class="h4 text-primary">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.InProgress)</div>
                                             <small class="text-muted">In Progress</small>
                                         </div>
                                     </div>
+
+                                    <!-- To Do tasks -->
                                     <div class="col-4">
                                         <div class="text-center">
                                             <div class="h4 text-secondary">@Model.TaskItems.Count(t => t.Status == project_GVEncheva22.Models.Status.ToDo)</div>
@@ -56,6 +77,8 @@
                                     </div>
                                 </div>
                                 <hr>
+
+                                <!-- Recent tasks list -->
                                 <h6>Recent Tasks</h6>
                                 <ul class="list-group list-group-flush">
                                     @foreach (var task in Model.TaskItems.OrderByDescending(t => t.CreatedAt).Take(5))
@@ -71,6 +94,7 @@
                             }
                             else
                             {
+                                <!-- Message when there are no tasks -->
                                 <div class="alert alert-light" role="alert">
                                     <i class="fas fa-info-circle"></i> No tasks have been added to this board yet.
                                 </div>
@@ -80,15 +104,21 @@
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
+
+                        <!-- Back button -->
                         <a asp-action="Index" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Back to List
                         </a>
+
+                        <!-- Admin-only actions -->
                         @if (User.IsInRole("Admin"))
                         {
                             <div>
+                                <!-- Edit board -->
                                 <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
+                                <!-- Delete board -->
                                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>

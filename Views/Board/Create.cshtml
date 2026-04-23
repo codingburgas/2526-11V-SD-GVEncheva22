@@ -1,36 +1,56 @@
 @model project_GVEncheva22.Models.Board
 
 @{
-    ViewData["Title"] = "Create Board";
+    ViewData["Title"] = "Create Board"; // Page title shown in browser tab
 }
 
+<!-- Main container that centers the form on the page -->
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a asp-action="Index">Boards</a></li>
+
+                    <!-- Current page (Create) -->
                     <li class="breadcrumb-item active" aria-current="page">Create</li>
                 </ol>
             </nav>
 
+            <!-- Card container for the form -->
             <div class="card form-card">
+
+                <!-- Card header -->
                 <div class="card-header bg-success text-white">
                     <h1 class="card-title h4 mb-0">
+
+                        <!-- Icon + title -->
                         <i class="bi bi-plus-circle"></i> Create New Board
                     </h1>
                 </div>
+
+                 <!-- Card body -->
                 <div class="card-body">
                     <form asp-action="Create">
+
+                        <!-- Displays model validation errors -->
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4"></div>
 
+                        <!-- Title input field -->
                         <div class="mb-3">
                             <label asp-for="Title" class="form-label">Board Title <span class="text-danger">*</span></label>
+
+                             <!-- Input for board title -->
                             <input asp-for="Title" class="form-control form-control-lg" placeholder="Enter a name for your board (e.g., Website Redesign)" />
+
+                            <!-- Validation message for Title -->
                             <span asp-validation-for="Title" class="text-danger small"></span>
+
+                            <!-- Helper text for the user -->
                             <small class="text-muted d-block mt-2">Boards help organize tasks into projects or categories</small>
                         </div>
 
+                        <!-- Submit button -->
                         <div class="d-grid gap-2 pt-2">
                             <button type="submit" class="btn btn-success btn-lg">
                                 <i class="bi bi-check-circle"></i> Create Board
@@ -40,6 +60,7 @@
                 </div>
             </div>
 
+            <!-- Back button -->
             <div class="text-center mt-3">
                 <a asp-action="Index" class="btn btn-outline-secondary">
                     <i class="fas fa-arrow-left"></i> Back to List
